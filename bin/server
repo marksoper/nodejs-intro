@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+require.paths.unshift("/usr/local/lib/node_modules");
+
 var sys = require('sys'),
     path = require('path'),
     argv = require('optimist').argv;
@@ -10,8 +12,8 @@ var help = [
     "Runs the demo pinpoint server at the appropriate stage in development",
     "",
     "options:",
-    "  -p             Port that you want the home server to run on      [8000]",
-    "  -t, --target   Target stage for pinpoint development             [00getting-started]",
+    "  -p             Port that you want the home server to run on      [80]",
+    "  -t, --target   Target stage for pinpoint development             [04jsdom]",
     "  -s, --setup    Indicates we should configure the database first  [false]",
     "  -a, --auth     user:password combo to use for HTTP Basic Auth    [none]",
     "  -h, --help     You're staring at it",
@@ -22,12 +24,12 @@ if (argv.h || argv.help) {
 }
 
 var target, options = {
-  port: argv.p || 8000,
+  port: argv.p || 80,
   setup: argv.s || argv.setup || false, 
   basicAuth: argv.a || argv.auth || null
 };
 
-target = argv.t || argv.target || '00getting-started';
+target = argv.t || argv.target || '04jsdom';
 
 //
 // Unshift the target path so that we can require('pinpoint')
